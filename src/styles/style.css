@@ -154,31 +154,43 @@ html, body {
     will-change: transform;
 }
 
-@media (max-height: 600px) {
+@media (max-width: 375px) {
+    .chart-stage {
+        transform: scale(0.18);
+    }
+}
+
+@media (min-width: 375px) and (max-width: 428px) {
+    .chart-stage {
+        transform: scale(0.22);
+    }
+}
+
+@media (min-width: 429px) and (max-width: 500px) {
+    .chart-stage {
+        transform: scale(0.26);
+    }
+}
+
+@media (min-width: 501px) and (max-width: 768px) {
     .chart-stage {
         transform: scale(0.35);
     }
 }
 
-@media (max-width: 600px) {
-    .chart-stage {
-        transform: scale(0.35);
-    }
-}
-
-@media (min-width: 601px) and (max-width: 1200px) {
+@media (min-width: 769px) and (max-width: 1025px) {
     .chart-stage {
         transform: scale(0.6);
     }
 }
 
-@media (min-width: 1201px) and (max-width: 1900px) {
+@media (min-width: 1025px) and (max-width: 1439px) {
     .chart-stage {
         transform: scale(0.85);
     }
 }
 
-@media (min-width: 1901px) {
+@media (min-width: 1440px) {
     .chart-stage {
         transform: scale(1.7);
     }
