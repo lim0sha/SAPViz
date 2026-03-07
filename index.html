@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SAPViz</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+    <link rel="icon" type="image/png" href="src/assets/images/favicon.png">
+    <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+<header class="sticky-header">
+    <div class="header-left">
+        <img src="/src/assets/images/logo.png" alt="Logo" class="header-logo">
+    </div>
+    <div class="header-center">
+        <h1 id="trip-name" class="header-title">Загрузка...</h1>
+    </div>
+    <div class="header-right">
+        <a href="/archive.html" class="header-button">
+            <strong>Архив</strong>
+        </a>
+    </div>
+</header>
+
+<div class="viewport-fix">
+    <div class="chart-stage">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+</body>
+</html>
