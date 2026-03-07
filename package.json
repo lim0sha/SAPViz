@@ -1,0 +1,21 @@
+{
+  "name": "sapviz",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "papaparse": "^5.5.3",
+    "postcss": "^8.5.8"
+  }
+}
