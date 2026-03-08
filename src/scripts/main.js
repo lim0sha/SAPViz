@@ -189,7 +189,7 @@ function drawChart(ctx, size, scores) {
                 }
             }
         });
-        
+
         if (progress < 1) {
             requestAnimationFrame(animate);
         }
