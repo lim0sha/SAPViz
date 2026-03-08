@@ -19,6 +19,22 @@ body:not(.archive-page) .chart-stage {
     transform-origin: center center;
     transform: scale(1);
     will-change: transform;
+    opacity: 0;
+    animation: chartFadeIn 2s ease-out forwards;
+    animation-delay: 0.5s;
+}
+
+body:not(.archive-page) #myChart {
+    filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.4));
+}
+
+@keyframes chartFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @media (max-width: 375px) {

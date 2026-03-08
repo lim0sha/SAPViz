@@ -101,79 +101,101 @@ function drawChart(ctx, size, scores) {
         { start: -0.5 * Math.PI + (Math.PI * 4 / 3), end: -0.5 * Math.PI + (Math.PI * 6 / 3), level: scores.levels[2], percent: scores.percents[2], label: scores.labels[2], index: 3 }
     ];
 
-    ctx.clearRect(0, 0, size, size);
-    ctx.imageSmoothingEnabled = false;
-
     const isMobile = window.innerWidth <= 768;
+    function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+    }
+    let startTime = null;
+    const animationDuration = 1200;
 
-    sectors.forEach((sector) => {
-        const angleSpan = sector.end - sector.start;
-        const midAngle = sector.start + (angleSpan / 2);
+    function animate(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / animationDuration, 1);
+        const easedProgress = easeOutCubic(progress);
 
-        for (let i = 1; i <= totalLayers; i++) {
-            if (i > sector.level) break;
+        ctx.clearRect(0, 0, size, size);
+        ctx.imageSmoothingEnabled = false;
 
-            const innerRadius = (i - 1) * (layerThickness + gap);
-            const outerRadius = innerRadius + layerThickness;
+        sectors.forEach((sector) => {
+            const angleSpan = sector.end - sector.start;
+            const midAngle = sector.start + (angleSpan / 2);
 
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, outerRadius, sector.start, sector.end);
-            ctx.arc(centerX, centerY, innerRadius, sector.end, sector.start, true);
-            ctx.closePath();
+            for (let i = 1; i <= totalLayers; i++) {
+                if (i > sector.level) break;
 
-            ctx.fillStyle = '#850000';
-            ctx.fill();
+                const innerRadius = (i - 1) * (layerThickness + gap);
+                const outerRadius = innerRadius + layerThickness;
 
-            if (i === sector.level) {
-                const textRadius = innerRadius + (outerRadius - innerRadius) / 2;
-                const textX = centerX + Math.cos(midAngle) * textRadius;
-                const textY = centerY + Math.sin(midAngle) * textRadius;
+                const currentAngleSpan = angleSpan * easedProgress;
+                const currentEnd = sector.start + currentAngleSpan;
 
-                ctx.fillStyle = '#e3e3e3';
-                ctx.font = 'bold 75px "PublicGambolCyrillic", sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, outerRadius, sector.start, currentEnd);
+                ctx.arc(centerX, centerY, innerRadius, currentEnd, sector.start, true);
+                ctx.closePath();
 
-                ctx.save();
-                ctx.translate(textX, textY);
+                ctx.fillStyle = '#850000';
+                ctx.fill();
 
-                let textAngle = midAngle + Math.PI / 2;
-                if (textAngle > Math.PI / 2 && textAngle < 3 * Math.PI / 2) {
-                    textAngle += Math.PI;
+                if (i === sector.level && easedProgress > 0.7) {
+                    const textRadius = innerRadius + (outerRadius - innerRadius) / 2;
+                    const textX = centerX + Math.cos(midAngle) * textRadius;
+                    const textY = centerY + Math.sin(midAngle) * textRadius;
+
+                    const textOpacity = Math.min((easedProgress - 0.7) / 0.3, 1);
+                    ctx.fillStyle = `rgba(227, 227, 227, ${textOpacity})`;
+                    ctx.font = 'bold 75px "PublicGambolCyrillic", sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+
+                    ctx.save();
+                    ctx.translate(textX, textY);
+
+                    let textAngle = midAngle + Math.PI / 2;
+                    if (textAngle > Math.PI / 2 && textAngle < 3 * Math.PI / 2) {
+                        textAngle += Math.PI;
+                    }
+                    ctx.rotate(textAngle);
+
+                    ctx.fillText(sector.percent + '%', 0, 0);
+                    ctx.restore();
+
+                    const labelRadius = outerRadius + 200;
+                    const labelX = centerX + Math.cos(midAngle) * labelRadius;
+                    const labelY = centerY + Math.sin(midAngle) * labelRadius;
+
+                    ctx.fillStyle = `rgba(227, 227, 227, ${textOpacity})`;
+                    ctx.font = 'bold 52px "PublicGambolCyrillic", sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+
+                    ctx.save();
+                    ctx.translate(labelX, labelY);
+
+                    let labelAngle = midAngle + Math.PI / 2;
+                    if (labelAngle > Math.PI / 2 && labelAngle < 3 * Math.PI / 2) {
+                        labelAngle += Math.PI;
+                    }
+                    ctx.rotate(labelAngle);
+
+                    if (isMobile) {
+                        ctx.fillText(sector.index.toString(), 0, 0);
+                    } else {
+                        ctx.fillText(sector.label, 0, 0);
+                    }
+
+                    ctx.restore();
                 }
-                ctx.rotate(textAngle);
-
-                ctx.fillText(sector.percent + '%', 0, 0);
-                ctx.restore();
-
-                const labelRadius = outerRadius + 200;
-                const labelX = centerX + Math.cos(midAngle) * labelRadius;
-                const labelY = centerY + Math.sin(midAngle) * labelRadius;
-
-                ctx.fillStyle = '#e3e3e3';
-                ctx.font = 'bold 52px "PublicGambolCyrillic", sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-
-                ctx.save();
-                ctx.translate(labelX, labelY);
-
-                let labelAngle = midAngle + Math.PI / 2;
-                if (labelAngle > Math.PI / 2 && labelAngle < 3 * Math.PI / 2) {
-                    labelAngle += Math.PI;
-                }
-                ctx.rotate(labelAngle);
-
-                if (isMobile) {
-                    ctx.fillText(sector.index.toString(), 0, 0);
-                } else {
-                    ctx.fillText(sector.label, 0, 0);
-                }
-
-                ctx.restore();
             }
+        });
+        
+        if (progress < 1) {
+            requestAnimationFrame(animate);
         }
-    });
+    }
+
+    requestAnimationFrame(animate);
 }
 
 init().catch(console.error);
