@@ -1,3 +1,194 @@
+:root {
+    --color-bg1: rgb(15, 0, 0);
+    --color-bg2: rgb(5, 0, 0);
+    --color1: 80, 0, 0;
+    --color2: 100, 20, 20;
+    --color3: 60, 3, 3;
+    --color4: 90, 0, 0;
+    --color5: 50, 0, 0;
+    --color-interactive: 90, 30, 30;
+    --circle-size: 80%;
+    --blending: soft-light;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'PublicGambolCyrillic', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.gradient-bg .g1,
+.gradient-bg .g2,
+.gradient-bg .g3,
+.gradient-bg .g4,
+.gradient-bg .g5,
+.gradient-bg .interactive {
+    background-blend-mode: multiply;
+}
+
+
+.gradient-bg {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background: linear-gradient(40deg, var(--color-bg1), var(--color-bg2));
+    z-index: -3;
+}
+
+.gradient-bg svg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.gradient-bg .gradients-container {
+    filter: url(#goo) blur(100px);
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.gradient-bg .g1 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color1), 0.8) 0, rgba(var(--color1), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+    width: var(--circle-size);
+    height: var(--circle-size);
+    top: calc(50% - var(--circle-size) / 2);
+    left: calc(50% - var(--circle-size) / 2);
+    transform-origin: center center;
+    animation: moveVertical 30s ease infinite;
+    opacity: 1;
+}
+
+.gradient-bg .g2 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color2), 0.8) 0, rgba(var(--color2), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+    width: var(--circle-size);
+    height: var(--circle-size);
+    top: calc(50% - var(--circle-size) / 2);
+    left: calc(50% - var(--circle-size) / 2);
+    transform-origin: calc(50% - 400px);
+    animation: moveInCircle 20s reverse infinite;
+    opacity: 1;
+}
+
+.gradient-bg .g3 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color3), 0.8) 0, rgba(var(--color3), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+    width: var(--circle-size);
+    height: var(--circle-size);
+    top: calc(50% - var(--circle-size) / 2 + 200px);
+    left: calc(50% - var(--circle-size) / 2 - 500px);
+    transform-origin: calc(50% + 400px);
+    animation: moveInCircle 40s linear infinite;
+    opacity: 1;
+}
+
+.gradient-bg .g4 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color4), 0.8) 0, rgba(var(--color4), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+    width: var(--circle-size);
+    height: var(--circle-size);
+    top: calc(50% - var(--circle-size) / 2);
+    left: calc(50% - var(--circle-size) / 2);
+    transform-origin: calc(50% - 200px);
+    animation: moveHorizontal 40s ease infinite;
+    opacity: 0.7;
+}
+
+.gradient-bg .g5 {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color5), 0.8) 0, rgba(var(--color5), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+    width: calc(var(--circle-size) * 2);
+    height: calc(var(--circle-size) * 2);
+    top: calc(50% - var(--circle-size));
+    left: calc(50% - var(--circle-size));
+    transform-origin: calc(50% - 800px) calc(50% + 200px);
+    animation: moveInCircle 20s ease infinite;
+    opacity: 1;
+}
+
+.gradient-bg .interactive {
+    position: absolute;
+    background: radial-gradient(circle at center, rgba(var(--color-interactive), 0.8) 0, rgba(var(--color-interactive), 0) 50%) no-repeat;
+    mix-blend-mode: var(--blending);
+    width: 100%;
+    height: 100%;
+    top: -50%;
+    left: -50%;
+    opacity: 0.7;
+}
+
+@keyframes moveInCircle {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes moveVertical {
+    0% {
+        transform: translateY(-50%);
+    }
+    50% {
+        transform: translateY(50%);
+    }
+    100% {
+        transform: translateY(-50%);
+    }
+}
+
+@keyframes moveHorizontal {
+    0% {
+        transform: translateX(-50%) translateY(-10%);
+    }
+    50% {
+        transform: translateX(50%) translateY(10%);
+    }
+    100% {
+        transform: translateX(-50%) translateY(-10%);
+    }
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: -2;
+    pointer-events: none;
+    filter: url(#noiseFilter);
+    opacity: 0.7;
+}
+
 .sticky-header {
     position: fixed;
     top: 0;
@@ -8,7 +199,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 30px;
-    background: rgba(20, 20, 20, 0.95);
+    background: rgba(10, 10, 10, 0.8);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 1000;
@@ -106,43 +297,17 @@
     }
 }
 
-@font-face {
-    font-family: 'PublicGambolCyrillic';
-    src: url('../assets/fonts/PublicGambolCyrillicdemo.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-
-    background-color: #ffffff;
-    background-image: url('../assets/images/background.png');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-
-    overflow: hidden;
-    font-family: 'PublicGambolCyrillic', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
 .viewport-fix {
     position: absolute;
     top: 200px;
     left: 0;
     width: 100%;
-    height: calc(100% - 400px);
+    height: calc(100% - 200px);
     display: flex;
     justify-content: center;
     align-items: center;
     transform-origin: center center;
+    z-index: 100;
 }
 
 .chart-stage {
@@ -156,25 +321,25 @@ html, body {
 
 @media (max-width: 375px) {
     .chart-stage {
-        transform: scale(0.18);
+        transform: scale(0.14);
     }
 }
 
-@media (min-width: 375px) and (max-width: 428px) {
+@media (min-width: 376px) and (max-width: 428px) {
     .chart-stage {
-        transform: scale(0.22);
+        transform: scale(0.16);
     }
 }
 
 @media (min-width: 429px) and (max-width: 500px) {
     .chart-stage {
-        transform: scale(0.26);
+        transform: scale(0.18);
     }
 }
 
 @media (min-width: 501px) and (max-width: 768px) {
     .chart-stage {
-        transform: scale(0.35);
+        transform: scale(0.22);
     }
 }
 
@@ -184,7 +349,7 @@ html, body {
     }
 }
 
-@media (min-width: 1025px) and (max-width: 1439px) {
+@media (min-width: 1026px) and (max-width: 1439px) {
     .chart-stage {
         transform: scale(0.85);
     }
@@ -193,5 +358,80 @@ html, body {
 @media (min-width: 1440px) {
     .chart-stage {
         transform: scale(1.7);
+    }
+}
+
+@font-face {
+    font-family: 'PublicGambolCyrillic';
+    src: url('../assets/fonts/PublicGambolCyrillicdemo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.chart-legend {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 15px 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chart-legend .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.chart-legend .legend-item:last-child {
+    margin-bottom: 0;
+}
+
+.chart-legend .legend-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    background: #850000;
+    border-radius: 50%;
+    font-family: 'PublicGambolCyrillic', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #e3e3e3;
+}
+
+.chart-legend .legend-text {
+    font-family: 'PublicGambolCyrillic', sans-serif;
+    font-size: 16px;
+    color: #e3e3e3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .chart-legend {
+        bottom: 80px;
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .viewport-fix {
+        top: 60px;
+        height: calc(100% - 350px);
+        left: 12px;
+        padding-top: 20px;
+    }
+
+    .chart-stage {
+        transform: scale(0.25);
     }
 }

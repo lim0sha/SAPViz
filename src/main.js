@@ -6,6 +6,7 @@ const COL_K1 = 16;
 const COL_K2 = 17;
 const COL_K3 = 18;
 const COL_TRIP_NAME = 19;
+
 function roundScore(val) {
     if (val < 1.6) return 1;
     if (val < 2.6) return 2;
@@ -14,6 +15,7 @@ function roundScore(val) {
     if (val < 5.6) return 5;
     return 6;
 }
+
 function fetchData() {
     return new Promise((resolve, reject) => {
         Papa.parse(SHEET_URL, {
@@ -67,10 +69,19 @@ async function init() {
 
     try {
         const data = await fetchData();
+
         const tripNameElement = document.getElementById('trip-name');
         if (tripNameElement) {
             tripNameElement.textContent = data.tripName.toUpperCase();
         }
+
+        const legend1 = document.getElementById('legend-1');
+        const legend2 = document.getElementById('legend-2');
+        const legend3 = document.getElementById('legend-3');
+        if (legend1) legend1.textContent = data.labels[0];
+        if (legend2) legend2.textContent = data.labels[1];
+        if (legend3) legend3.textContent = data.labels[2];
+
         drawChart(ctx, size, data);
     } catch (err) {
         console.error(err);
@@ -85,13 +96,15 @@ function drawChart(ctx, size, scores) {
     const gap = 30;
 
     const sectors = [
-        { start: -0.5 * Math.PI, end: -0.5 * Math.PI + (Math.PI * 2 / 3), level: scores.levels[0], percent: scores.percents[0], label: scores.labels[0] },
-        { start: -0.5 * Math.PI + (Math.PI * 2 / 3), end: -0.5 * Math.PI + (Math.PI * 4 / 3), level: scores.levels[1], percent: scores.percents[1], label: scores.labels[1] },
-        { start: -0.5 * Math.PI + (Math.PI * 4 / 3), end: -0.5 * Math.PI + (Math.PI * 6 / 3), level: scores.levels[2], percent: scores.percents[2], label: scores.labels[2] }
+        { start: -0.5 * Math.PI, end: -0.5 * Math.PI + (Math.PI * 2 / 3), level: scores.levels[0], percent: scores.percents[0], label: scores.labels[0], index: 1 },
+        { start: -0.5 * Math.PI + (Math.PI * 2 / 3), end: -0.5 * Math.PI + (Math.PI * 4 / 3), level: scores.levels[1], percent: scores.percents[1], label: scores.labels[1], index: 2 },
+        { start: -0.5 * Math.PI + (Math.PI * 4 / 3), end: -0.5 * Math.PI + (Math.PI * 6 / 3), level: scores.levels[2], percent: scores.percents[2], label: scores.labels[2], index: 3 }
     ];
 
     ctx.clearRect(0, 0, size, size);
     ctx.imageSmoothingEnabled = false;
+
+    const isMobile = window.innerWidth <= 768;
 
     sectors.forEach((sector) => {
         const angleSpan = sector.end - sector.start;
@@ -144,7 +157,19 @@ function drawChart(ctx, size, scores) {
 
                 ctx.save();
                 ctx.translate(labelX, labelY);
-                ctx.fillText(sector.label, 0, 0);
+
+                let labelAngle = midAngle + Math.PI / 2;
+                if (labelAngle > Math.PI / 2 && labelAngle < 3 * Math.PI / 2) {
+                    labelAngle += Math.PI;
+                }
+                ctx.rotate(labelAngle);
+
+                if (isMobile) {
+                    ctx.fillText(sector.index.toString(), 0, 0);
+                } else {
+                    ctx.fillText(sector.label, 0, 0);
+                }
+
                 ctx.restore();
             }
         }
