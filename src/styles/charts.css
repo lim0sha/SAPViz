@@ -1,0 +1,68 @@
+/*main chart page*/
+body:not(.archive-page) .viewport-fix {
+    position: absolute;
+    top: 120px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 200px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin: center center;
+    z-index: 100;
+}
+
+body:not(.archive-page) .chart-stage {
+    position: relative;
+    width: 3000px;
+    height: 3000px;
+    transform-origin: center center;
+    transform: scale(1);
+    will-change: transform;
+}
+
+@media (max-width: 375px) {
+    body:not(.archive-page) .chart-stage {
+        bottom: 140px;
+        transform: scale(0.25);
+    }
+}
+
+@media (min-width: 375px) and (max-width: 428px) {
+    body:not(.archive-page) .chart-stage {
+        bottom: 140px;
+        transform: scale(0.25);
+    }
+}
+
+@media (min-width: 428px) and (max-width: 500px) {
+    body:not(.archive-page) .chart-stage {
+        bottom: 140px;
+        transform: scale(0.3);
+    }
+}
+
+@media (min-width: 501px) and (max-width: 768px) {
+    body:not(.archive-page) .chart-stage {
+        bottom: 140px;
+        transform: scale(0.3);
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1025px) {
+    body:not(.archive-page) .chart-stage {
+        transform: scale(0.4);
+    }
+}
+
+@media (min-width: 1026px) and (max-width: 1439px) {
+    body:not(.archive-page) .chart-stage {
+        transform: scale(0.5);
+    }
+}
+
+@media (min-width: 1440px) {
+    body:not(.archive-page) .chart-stage {
+        transform: scale(0.7);
+    }
+}

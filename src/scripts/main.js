@@ -1,4 +1,4 @@
-import './styles/style.css';
+import '../styles/archive.css';
 import Papa from 'papaparse';
 
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScOT-7idyD-HQeYqKmBeh5ZrJoQVxtKpqY3NyQb1XkfSNHVWiLKMztAABkAJSiLURrGUZMT23MrEkD/pub?output=csv';
@@ -16,7 +16,7 @@ function roundScore(val) {
     return 6;
 }
 
-function fetchData() {
+async function fetchData() {
     return new Promise((resolve, reject) => {
         Papa.parse(SHEET_URL, {
             download: true,
@@ -146,7 +146,7 @@ function drawChart(ctx, size, scores) {
                 ctx.fillText(sector.percent + '%', 0, 0);
                 ctx.restore();
 
-                const labelRadius = outerRadius + 250;
+                const labelRadius = outerRadius + 200;
                 const labelX = centerX + Math.cos(midAngle) * labelRadius;
                 const labelY = centerY + Math.sin(midAngle) * labelRadius;
 

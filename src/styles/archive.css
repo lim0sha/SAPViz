@@ -1,0 +1,113 @@
+/*archive page*/
+.archive-page {
+    min-height: 100vh;
+    overflow: auto !important;
+}
+
+.archive-page .archive-content {
+    padding: 100px 40px 40px 40px;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.archive-page .chart-stage {
+    width: 100%;
+    max-width: 1800px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.archive-page .archive-charts-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.archive-page .ordered-charts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+}
+
+.archive-page .archive-chart-card {
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    flex: 0 0 auto;
+    width: 380px;
+    max-width: 380px;
+}
+
+.archive-page .chart-trip-title {
+    font-family: 'PublicGambolCyrillic', sans-serif;
+    font-size: x-large;
+    font-weight: bold;
+    color: #e3e3e3;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    text-align: center;
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1400px) {
+    .archive-page .archive-chart-card {
+        width: 360px;
+        max-width: 360px;
+    }
+}
+
+@media (max-width: 900px) {
+    .archive-page .archive-content {
+        padding: 90px 20px 30px 20px;
+    }
+
+    .archive-page .chart-stage,
+    .archive-page .archive-charts-wrapper,
+    .archive-page .ordered-charts {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        scale: var(0.7);
+    }
+
+    .archive-page .archive-chart-card {
+        width: calc(100vw - 60px);
+        max-width: 500px;
+        min-width: 280px;
+        margin: 0;
+        padding: 25px 20px;
+    }
+
+    .archive-page .chart-trip-title {
+        font-size: x-large;
+        min-height: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .archive-page .chart-stage {
+        transform: none !important;
+        scale: var(0.4);
+    }
+}

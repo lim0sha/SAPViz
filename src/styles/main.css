@@ -1,0 +1,38 @@
+/*root*/
+:root {
+    --color-bg1: rgb(15, 0, 0);
+    --color-bg2: rgb(5, 0, 0);
+    --color1: 80, 0, 0;
+    --color2: 100, 20, 20;
+    --color3: 60, 3, 3;
+    --color4: 90, 0, 0;
+    --color5: 50, 0, 0;
+    --color-interactive: 90, 30, 30;
+    --circle-size: 80%;
+    --blending: soft-light;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/*common*/
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'PublicGambolCyrillic', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*font*/
+@font-face {
+    font-family: 'PublicGambolCyrillic';
+    src: url('../assets/fonts/PublicGambolCyrillicdemo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

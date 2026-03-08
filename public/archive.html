@@ -2,9 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Archive</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Website for visualizing challenges data of SAP trips in ART Lichnost' career guidance camp.">
+    <meta name="keywords" content="Visualizing, Diagrams, Infographics, ART Lichnost'">
+    <meta name="author" content="Kim Alexander, lim0sha">
+
+    <title>SAPViz</title>
+
+    <link rel="stylesheet" href="../src/styles/main.css">
+    <link rel="stylesheet" href="../src/styles/background.css">
+    <link rel="stylesheet" href="../src/styles/header.css">
+    <link rel="stylesheet" href="../src/styles/legend.css">
+    <link rel="stylesheet" href="../src/styles/charts.css">
+    <link rel="stylesheet" href="../src/styles/archive.css">
+
+    <link rel="icon" type="image/png" href="../src/assets/images/favicon.png">
+    <script type="module" src="/src/scripts/archive.js"></script>
 </head>
-<body>
-$END$
+<body class="archive-page">
+<svg style="position: fixed; top: 0; left: 0; width: 0; height: 0; pointer-events: none;">
+    <defs>
+        <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo"/>
+            <feBlend in="SourceGraphic" in2="goo"/>
+        </filter>
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+            <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.12 0"/>
+        </filter>
+    </defs>
+</svg>
+
+<div class="gradient-bg">
+    <div class="gradients-container">
+        <div class="g1"></div>
+        <div class="g2"></div>
+        <div class="g3"></div>
+        <div class="g4"></div>
+        <div class="g5"></div>
+        <div class="interactive"></div>
+    </div>
+</div>
+
+<header class="sticky-header">
+    <div class="header-left">
+        <img src="/src/assets/images/logo.png" alt="Logo" class="header-logo">
+    </div>
+    <div class="header-center">
+        <h1 class="header-title">Архив</h1>
+    </div>
+    <div class="header-right">
+        <a href="/" class="header-button">
+            <strong>Назад</strong>
+        </a>
+    </div>
+</header>
+
+<main class="archive-content">
+    <div class="chart-stage"></div>
+</main>
 </body>
 </html>
